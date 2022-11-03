@@ -17,6 +17,17 @@ class Mochila(){
     var pesoMaximo = 0
     var objetos = mutableListOf<Item>()
 
+    //lenar el array objetos con objetos de la clase Item mientras el peso sea menos al peso maximo
+    fun llenarMochila(){
+        var pesoActual = 0
+        while(pesoMaximo < 10){
+            objetos.add(Item())
+            pesoMaximo += objetos.last().peso
+        }
+    }
+
+
+
 }
 
 class Personaje() {
@@ -25,14 +36,6 @@ class Personaje() {
     var raza: String = ""
     var clase: String =""
     var mochila = Mochila()
-
-    fun llenarMochila(){
-        //Repetir mientras el peso de los objetos de la mochila sea menor al peso maximo
-        
-
-    }
-
-
 
     init {
         val posibilidadesEv = listOf<String>("Adolescente","Adulto","Anciano")
@@ -115,7 +118,6 @@ class Personaje() {
 
 
     }
-
 
     fun comunicacion(){
         var respuesta:String =""
