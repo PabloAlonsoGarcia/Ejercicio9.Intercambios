@@ -2,13 +2,11 @@ import kotlin.random.Random
 
 class Item() {
 
+    val id = Random.nextInt(1,100)
     var peso = Random.nextInt(1, 10)
     var valor = Random.nextInt(10, 50)
 
 
-    override fun toString(): String {
-        return "Item(w=$peso, v=$valor)"
-    }
 
 
 }
@@ -19,11 +17,31 @@ class Mochila(){
 
     //lenar el array objetos con objetos de la clase Item mientras el peso sea menos al peso maximo
     fun llenarMochila(){
+        var cont =0
         var pesoActual = 0
         while(pesoMaximo < 10){
             objetos.add(Item())
             pesoMaximo += objetos.last().peso
+            cont++
         }
+    }
+
+    fun mostrarMochila(){
+        println("Peso maximo: $pesoMaximo")
+        println("Objetos: ")
+        objetos.forEach{
+            println("Id:${it.id} Peso: ${it.peso} Valor: ${it.valor}")
+        }
+    }
+
+    //coprobar que la mocila tiene el objeto
+    fun tieneObjeto(id: Int): Boolean{
+        objetos.forEach{
+            if(it.id == id){
+                return true
+            }
+        }
+        return false
     }
 
 
@@ -36,6 +54,13 @@ class Personaje() {
     var raza: String = ""
     var clase: String =""
     var mochila = Mochila()
+    //lista que contiene cuatro mapas de dos enteros
+    var monedero = mutableListOf<MutableMap<Int, Int>>()
+
+
+
+
+
 
     init {
         val posibilidadesEv = listOf<String>("Adolescente","Adulto","Anciano")
@@ -322,9 +347,24 @@ class Personaje() {
         }
 
     }
-}
+
+    fun calculoJusto(Item:Item){
+        var precio=Item.valor
+
+
+
+    }
+
+    }
+
 
 fun main() {
+    var cantidad:Int=0
+    var respuesta = mutableListOf<Int>()
+    var aux:Int=0
+
+
+
     println("Personaje 1: ")
     val personaje1 = Personaje()
     //imprime el nombre y la clase del personaje
@@ -336,16 +376,52 @@ fun main() {
     val personaje2=Personaje()
     personaje2.clase="Mercader"
     personaje2.imprimir()
+    println("--------------------")
 
-    println("Hora de comerciar")
-    personaje1.llenarMochila()
-    personaje1.mochila.objetos.forEach { println(it) }
+    println("Hora de comerciar.")
+    println("Estos son los objetos que ofrece " + personaje1.nombre + ":")
+    println()
+
+    personaje1.mochila.llenarMochila()
+    //imprime los objetos que tiene el personaje
+    personaje1.mochila.mostrarMochila()
+
+    println()
+    println("Ahora te toca decidir que objetos deseas intercambiar:")
+    println("Introduce el numero de objetos que deseas:")
+    cantidad= readLine()!!.toInt()
+
+    while(cantidad>personaje1.mochila.objetos.size){
+        println("No puedes intercambiar mas objetos de los que tienes")
+        println("Introduce el numero de objetos que deseas:")
+        cantidad= readLine()!!.toInt()
+    }
 
 
+    for(i in 1..cantidad){
+        println("Introduce la ID del objeto $i:")
+        aux= readln().toInt()
+        while(personaje1.mochila.tieneObjeto(aux)==false){
+            println("No tienes ese objeto")
+            println("Introduce la ID del objeto $i:")
+            aux= readln().toInt()
+            }
+        }
 
 
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
